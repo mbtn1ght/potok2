@@ -1,6 +1,8 @@
-package stdout
+package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Writer struct{}
 
@@ -10,4 +12,10 @@ func NewWriter() *Writer {
 
 func (s *Writer) Write(p []byte) (int, error) {
 	return fmt.Println(string(p))
+}
+
+func main() {
+	w := NewWriter()
+	slice := []byte("Hallo world!")
+	w.Write(slice)
 }
