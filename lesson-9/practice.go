@@ -1,35 +1,34 @@
-// 1. Интерфейсы
 // Задача:
-// Создай интерфейс Speaker с методом Speak() string. Сделай две структуры:
-// Dog и Cat, каждая должна реализовать Speak()
-// (например, "Woof" и "Meow"). Напиши функцию SaySomething(s Speaker),
-// которая выводит результат Speak().
-
+// Создай интерфейс Mover с методом Move() string.
+// Сделай две структуры: Car и Bird. Каждая должна реализовать
+// Move(), например, "Car drives" и "Bird flies". Напиши функцию
+// DoMove(m Mover), которая выводит результат Move().
 package main
 
 import "fmt"
 
-type Speaker interface {
-	Speak() string
+type Move interface {
+	Move() string
 }
 
-type Dog struct{}
-type Cat struct{}
+type Car struct{}
+type Bird struct{}
 
-func (s *Dog) Speak() string {
-	return "Woof"
+func (s *Car) Move() string {
+	return "Car drives"
 }
 
-func (s *Cat) Speak() string {
-	return "Meaw"
+func (s *Bird) Move() string {
+	return "Bird flies"
 }
 
-func SaySomething(s Speaker) {
-	fmt.Println(s.Speak())
+func DoMove(s Move) {
+	fmt.Println(s.Move())
 }
+
 func main() {
-	Cat := &Cat{}
-	Dog := &Dog{}
-	SaySomething(Cat)
-	SaySomething(Dog)
+	Car := &Car{}
+	Bird := &Bird{}
+	DoMove(Car)
+	DoMove(Bird)
 }
