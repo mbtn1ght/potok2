@@ -35,8 +35,10 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	wg.Add(1)
-	go workerC(in, out, &wg)
+	for range 10 {
+		wg.Add(1)
+		go workerC(in, out, &wg)
+	}
 
 	// Отправляем сообщения в горутину
 	in <- "Привет"
