@@ -8,7 +8,7 @@ import (
 )
 
 func hello(w http.ResponseWriter, _ *http.Request) {
-	_, err := w.Write([]byte("Hello world!"))
+	_, err := w.Write([]byte("FUCK ME PLS"))
 	if err != nil {
 		fmt.Println("Error writing response:", err)
 	}
