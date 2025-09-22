@@ -7,8 +7,10 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// http://k8s.golang-school.ru:8090/mnepryakhin/my-app
+
 func hello(w http.ResponseWriter, _ *http.Request) {
-	_, err := w.Write([]byte("Hello from Kubernetes"))
+	_, err := w.Write([]byte("Hello from k8s server!!"))
 	if err != nil {
 		fmt.Println("Error writing response:", err)
 	}
@@ -18,7 +20,7 @@ func hello(w http.ResponseWriter, _ *http.Request) {
 
 func main() {
 	router := chi.NewRouter()
-	router.Get("/myapp", hello)
+	router.Get("/ikaoden/my-app", hello)
 
 	fmt.Println("Starting server on :8080")
 

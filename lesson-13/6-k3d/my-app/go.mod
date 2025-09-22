@@ -1,4 +1,4 @@
-module example
+module gitlab.golang-school.ru/potok-2/ikaoden/my-app
 
 go 1.24.6
 

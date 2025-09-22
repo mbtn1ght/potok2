@@ -1,0 +1,36 @@
+variables:
+  USERNAME: "ikaoden" # Укажите ваш username (название папки с приложением)
+  APP_NAME: "my-app"      # Укажите название вашего репозитория
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  variables:
+    IMAGE: $REGISTRY/$USERNAME/$APP_NAME
+    TAG: $CI_COMMIT_SHORT_SHA
+  script:
+    - docker build --tag $IMAGE:$TAG .
+    - docker push $IMAGE:$TAG
+
+deploy:
+  stage: deploy
+  variables:
+    IMAGE: $REGISTRY/$USERNAME/$APP_NAME
+    TAG: $CI_COMMIT_SHORT_SHA
+    REPOSITORY: https://$GITLAB_DEPLOY_USER:$GITLAB_DEPLOY_PASS@gitlab.golang-school.ru/potok-2/deploy.git
+  script:
+    - git config --global user.email "ci@gitlab.bot"
+    - git config --global user.name "CI Bot"
+    - git clone $REPOSITORY
+    - cd deploy/$USERNAME-$APP_NAME
+    - sed -i "s|$IMAGE:.*|$IMAGE:$TAG|g" 1-deployment.yaml
+    - git add 1-deployment.yaml
+    - git commit -m "$USERNAME - $APP_NAME update image $TAG"
+    - git push $REPOSITORY
+    - echo "Deploy"
+    - kubectl apply -f ./1-deployment.yaml
+    - kubectl apply -f ./2-service.yaml
+    - kubectl apply -f ./3-ingress.yaml

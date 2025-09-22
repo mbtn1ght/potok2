@@ -9,7 +9,7 @@ RUN go mod download
 # Build layer
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-    go build -o /myapp ./main.go
+    go build -o /myapp ./cmd/app
 
 FROM alpine:3.22 AS run
 
